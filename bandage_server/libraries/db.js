@@ -6,8 +6,8 @@ pg.types.setTypeParser(20, Number);
 const knexConfig = {
     client: "postgresql",
     connection: {
-        database: "bandage",
-        user: "tnluser",
+        database: "training_dump",
+        user: "swatimahajan",
         password: null,
     },
     pool: {

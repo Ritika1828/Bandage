@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 const generateJWTToken = ({ payload }) => {
     return new Promise((resolve, reject) => {
-        jwt.sign(payload, process.env.JWT_SECRET_KEY, (error, token) => {
+        jwt.sign(payload,`${process.env.SECRET_KEY}`, (error, token) => {
             if (error) {
                 return reject(error);
             }
@@ -13,7 +13,7 @@ const generateJWTToken = ({ payload }) => {
 
 const verifyJWTToken = ({ token }) => {
     return new Promise((resolve, reject) => {
-        jwt.verify(token, process.env.JWT_SECRET_KEY, (error, decoded) => {
+        jwt.verify(token,`${process.env.SECRET_KEY}`, (error, decoded) => {
             if (error) {
                 return reject(error);
             }
