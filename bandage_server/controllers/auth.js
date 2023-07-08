@@ -15,7 +15,7 @@ const registration = async (req, res) => {
         }
 
         const newUser = await createNewUser({ name, email, phone, password });
-        const token = await generateJWTToken({ payload: { id: newUser.id } });
+        const token = await generateJWTToken({ payload: { user_id: newUser.id } });
 
         return res.status(200).json({
             success: true,

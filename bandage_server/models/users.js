@@ -10,7 +10,7 @@ const createNewUser = ({ name, email, phone, password }) => {
             .digest("hex");
         db("users")
             .insert({
-                id: uuidv4(),
+                user_id: uuidv4(),
                 name,
                 email,
                 phone,
@@ -36,7 +36,7 @@ const getUserById = ({ id }) => {
     return new Promise((resolve, reject) => {
         db("users")
             .select("*")
-            .where({ id })
+            .where({ user_id })
             .then((rows) => resolve(rows[0]))
             .catch((error) => reject(error));
     });
