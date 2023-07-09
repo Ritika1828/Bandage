@@ -10,7 +10,8 @@ const { validate } = require("uuid");
 
 const userCart = async (req, res) => {
     try {
-        const { id: userId } = req.session;
+        const { id : userId } = req.session;
+        console.log('sn', userId)
         const cart = await getUserCart({ userId });
         return res.status(200).json({
             success: true,
@@ -26,12 +27,13 @@ const userCart = async (req, res) => {
 
 const addTocart = async (req, res) => {
     try {
-        const { id: userId } = req.session;
-        const { productId, quantity } = req.body;
+        const { id : userId } = req.session;
+        console.log('dj',userId)
+        const { productid, quantity} = req.body;
         if (
-            !productId ||
+            !productid ||
             !quantity ||
-            !validate(productId) ||
+            !validate(productid) ||
             isNaN(quantity)
         ) {
             return res.status(400).json({
@@ -41,7 +43,7 @@ const addTocart = async (req, res) => {
         }
         const existingCartItem = await getCartItemByProductId({
             userId,
-            productId,
+            productid,
         });
 
         if (existingCartItem) {
@@ -53,7 +55,7 @@ const addTocart = async (req, res) => {
 
         const cartItem = await addProductToCart({
             userId,
-            productId,
+            productid,
             quantity,
         });
         return res.status(200).json({

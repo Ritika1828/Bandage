@@ -3,32 +3,32 @@ const { v4: uuidv4 } = require("uuid");
 
 const getUserCart = ({ userId }) => {
     return new Promise((resolve, reject) => {
-        db.with(
-            "user_cart",
-            db.raw(`SELECT * FROM cart WHERE "userId"='${userId}'`)
+        
+        db.from(
+            "cart_details",
+            db.raw(`SELECT * FROM cart_details WHERE "userId"='${userId}'`)
         )
             .select([
-                "user_cart.id AS id",
+                "cart_details.id AS id",
                 "name",
                 "images",
-                "brand",
                 "quantity",
                 "price",
-                "products.id AS productId",
+                "products.id AS productid",
             ])
-            .from("user_cart")
+            .from("cart_details")
             .innerJoin("products", function () {
-                this.on("user_cart.productId", "=", "products.id");
+                this.on("cart_details.productid", "=", "products.id");
             })
             .then((rows) => resolve(rows))
             .catch((error) => reject(error));
     });
 };
 
-const addProductToCart = ({ userId, productId, quantity }) => {
+const addProductToCart = ({ userId, productid, quantity }) => {
     return new Promise((resolve, reject) => {
-        db("cart")
-            .insert({ id: uuidv4(), userId, productId, quantity })
+        db("cart_details")
+            .insert({ id: uuidv4(), userId, productid, quantity })
             .returning("*")
             .then((rows) => resolve(rows[0]))
             .catch((error) => reject(error));
@@ -37,7 +37,7 @@ const addProductToCart = ({ userId, productId, quantity }) => {
 
 const updateProductQuantity = ({ id, quantity }) => {
     return new Promise((resolve, reject) => {
-        db("cart")
+        db("cart_details")
             .update({ quantity })
             .where({ id })
             .then(() => resolve())
@@ -47,7 +47,7 @@ const updateProductQuantity = ({ id, quantity }) => {
 
 const removeCartItem = ({ id }) => {
     return new Promise((resolve, reject) => {
-        db("cart")
+        db("cart_details")
             .where({ id })
             .del()
             .then(() => resolve())
@@ -57,7 +57,7 @@ const removeCartItem = ({ id }) => {
 
 const emptyCart = ({ userId }) => {
     return new Promise((resolve, reject) => {
-        db("cart")
+        db("cart_details")
             .where({ userId })
             .del()
             .then(() => resolve())
@@ -65,11 +65,11 @@ const emptyCart = ({ userId }) => {
     });
 };
 
-const getCartItemByProductId = ({ productId, userId }) => {
+const getCartItemByProductId = ({ productid, userId }) => {
     return new Promise((resolve, reject) => {
-        db("cart")
+        db("cart_details")
             .select("*")
-            .where({ userId, productId })
+            .where({ userId, productid })
             .then((rows) => resolve(rows[0]))
             .catch((error) => reject(error));
     });
@@ -77,7 +77,7 @@ const getCartItemByProductId = ({ productId, userId }) => {
 
 const getCartItemById = ({ id }) => {
     return new Promise((resolve, reject) => {
-        db("cart")
+        db("cart_details")
             .select("*")
             .where({ id })
             .then((rows) => resolve(rows[0]))

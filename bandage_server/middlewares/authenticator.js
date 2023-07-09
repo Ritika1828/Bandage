@@ -15,7 +15,7 @@ const jwtAuthenticator = async (req, res, next) => {
         const token = req.headers.authorization.split(" ")[1];
         const payload = await verifyJWTToken({ token });
         req.session = payload;
-
+        
         next();
     } catch (error) {
         return res.status(400).json({

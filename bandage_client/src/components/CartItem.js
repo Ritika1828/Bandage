@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 const CartItem = ({ cartItem }) => {
     const dispatch = useContext(UserDispatchContext);
 
-    const { id, name, brand, price, images } = cartItem;
+    const { id, name, price, images } = cartItem;
     const [quantity, setQuantity] = useState(cartItem.quantity);
 
     const handleQuantityChange = (e) => {
@@ -59,7 +59,6 @@ const CartItem = ({ cartItem }) => {
             ></div>
             <div className={cartItemCss.itemDetails}>
                 <h6 className={cartItemCss.name}>{name}</h6>
-                <p className={cartItemCss.brand}>{brand}</p>
                 <p className={cartItemCss.prices}>
                     <span className={cartItemCss.original}>$ {price}</span>
                     <span className={cartItemCss.discounted}>$ {price}</span>

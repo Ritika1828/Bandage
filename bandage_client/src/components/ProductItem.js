@@ -18,14 +18,13 @@ const Product = ({ product }) => {
     const handleAddItemToCart = () => {
         setIsAdding(true);
         const toastId = toast.loading("Adding product to your cart....");
-        addProductToCart({ productId: id, quantity: 1 })
+        addProductToCart({ productid: id, quantity: 1 })
             .then((result) => {
                 const response = result.data;
                 const product = {
                     name,
                     images,
                     price,
-                    brand,
                     ...response,
                 };
                 dispatch({
@@ -60,7 +59,7 @@ const Product = ({ product }) => {
         const checkInCart = () => {
             setInCart(false);
             cart.every((item) => {
-                if (item.productId === id) {
+                if (item.productid === id) {
                     setInCart(true);
                     return false;
                 }

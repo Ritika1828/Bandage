@@ -140,7 +140,7 @@ function App() {
                     <Footer />
                 </>
             )}
-            <ToastContainer autoClose={4000} position="bottom-right" />
+            <ToastContainer limit={5} autoClose={2500} closeOnClick={true} position="bottom-right" />
         </div>
     );
 }

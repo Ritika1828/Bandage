@@ -29,7 +29,7 @@ const Cart = () => {
 
     useEffect(() => {
         let tempTotal = cart.reduce((acc, item) => {
-            return acc + item.price * item.quantity;
+            return acc + item.amount * item.quantity;
         }, 0.0);
         setTotal(tempTotal);
     }, [cart]);
@@ -42,7 +42,7 @@ const Cart = () => {
         setOrderLoading(true);
         setOrderMade(true);
         const products = cart.reduce((acc, item) => {
-            acc.push({ id: item.productId, quantity: item.quantity });
+            acc.push({ id: item.productid, quantity: item.quantity });
             return acc;
         }, []);
 

@@ -1,6 +1,6 @@
 import Axios from "./Axios";
 
-export const addProductToCart = ({ productId, quantity = 1 }) => {
+export const addProductToCart = ({ productid, quantity = 1 }) => {
     return new Promise((resolve, reject) => {
         Axios({
             url: "add_to_cart",
@@ -11,7 +11,7 @@ export const addProductToCart = ({ productId, quantity = 1 }) => {
                 "Access-Control-Allow-Origin": "*",
                 "ngrok-skip-browser-warning": true,
             },
-            data: JSON.stringify({ productId, quantity }),
+            data: JSON.stringify({ productid, quantity }),
         })
             .then((result) => resolve(result.data))
             .catch((error) => reject(error.response.data));
